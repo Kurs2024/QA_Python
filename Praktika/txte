@@ -1,0 +1,21 @@
+import pymysql
+import pymysql.cursors
+from main_config_base import host,user,password,db_name
+
+try:
+    connection = pymysql.connect(
+    host=host,
+    port=3306,
+    user=user,
+    password=password,
+    database=db_name,
+    cursorclass=pymysql.cursors.DictCursor
+    )
+    print('succsess')
+    print('#' * 30)
+
+    try:
+        with connection.cursor() as cursor:
+            select_name='''SELECT*FROM team WHERE `qa`>5'''
+        cursor.execute(select_name)
+        rows=cursor.fetchall()
